@@ -25,22 +25,31 @@ class node {
         return count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void countInc() {
+        count = count + 1;
     }
 }
 
 class linkedList {
     private node head;
-    ArrayList tempList;
+    ArrayList<node> tempList;
 
     public linkedList() {
         this.head = new node();
-        tempList = new ArrayList<Character>();
+        tempList = new ArrayList<node>();
     }
 
     public node getNode() {
         return head;
+    }
+
+    public node getNode(char c) {
+        for (node temp : tempList) {
+            if (temp.data == c) {
+                return temp;
+            }
+        }
+        return null;
     }
 
     public void add(char c) {
@@ -56,11 +65,12 @@ class linkedList {
     }
 
     public boolean contains(char c) {
-        if (tempList.contains(c)) {
-            return true;
-        } else {
-            return false;
+        for (node temp : tempList) {
+            if (temp.data == c) {
+                return true;
+            }
         }
+        return false;
     }
 
     public void sort() {
@@ -97,13 +107,13 @@ class linkedList {
 class FirstNonRepeatingStream {
 
     public linkedList checkList(linkedList l) {
+        
         linkedList tempList = new linkedList();
         node temp = l.getNode();
         while (temp.next != null) {
             if (tempList.contains(temp.data)) {
-                temp.count++;
-            } 
-            else {
+                tempList.getNode(temp.data).countInc();
+            } else {
                 tempList.add(temp.data);
             }
             temp = temp.next;
@@ -118,7 +128,7 @@ class FirstNonRepeatingStream {
 
     public char getFirstNonRepeating(linkedList l) {
         node temp = l.getNode();
-        if (temp.getCount() == 0) {
+        if (temp.getCount() == 1) {
             char c = temp.data;
             return c;
         }
@@ -139,7 +149,6 @@ public class q2 {
         l = fnrs.checkList(l);
         l2.display(l);
         l = fnrs.sortList(l);
-        l2.display(l);
         System.out.println("First non-repeating character: " + fnrs.getFirstNonRepeating(l));
 
     }
