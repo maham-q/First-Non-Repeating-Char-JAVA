@@ -141,5 +141,6 @@ public class q2 {
         l = fnrs.sortList(l);
         l2.display(l);
         System.out.println("First non-repeating character: " + fnrs.getFirstNonRepeating(l));
+
     }
 }
