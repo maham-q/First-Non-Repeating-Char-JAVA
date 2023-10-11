@@ -75,7 +75,30 @@ class linkedList{
             curr = curr.next;
     }
 }
+public class FirstNonRepeatingStream{
+    public linkedList list=new linkedList();
+    
+    public void checkList(node temp){
+        if(list.contains(temp.data)){
+            list.getNode(temp).setCount(temp.count++);
+        }
+        else{
+            list.add(temp.data);
+        }   
+    }
+    public LinkedList<Character> sort(){
+        list.sort();
+    }
+    public char getFirstNonRepeating(){
+        if(list.getNode(head).getCount()==0){
+            char c=list.getNode(head).getData();
+            return c;
+        }
+        return '-';
+        
+    }
 
+}
 
 public class q2{
     public static void main(String[] args){
