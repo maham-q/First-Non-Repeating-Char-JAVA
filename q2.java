@@ -1,64 +1,72 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
-class node{
+
+class node {
     public char data;
     public int count;
     public node next;
 
-    public node(){
+    public node() {
         this.data = ' ';
-        this.count=0;
-        this.next=null;
+        this.count = 1;
+        this.next = null;
     }
-    public node(char data){
+
+    public node(char data) {
         this.data = data;
-        this.count=0;
-        this.next=null;
+        this.count = 1;
+        this.next = null;
     }
-    public char getData(){
+
+    public char getData() {
         return data;
     }
-    public int getCount(){
+
+    public int getCount() {
         return count;
     }
-    public void setCount(int count){
-        this.count=count;
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
-class linkedList{
+
+class linkedList {
     private node head;
     ArrayList tempList;
-    public linkedList(){
-        this.head=new node();
-        tempList=new ArrayList<Character>();
+
+    public linkedList() {
+        this.head = new node();
+        tempList = new ArrayList<Character>();
     }
-    public node getNode(node n){
-        return n;
+
+    public node getNode() {
+        return head;
     }
-    public void add(char c){
-        node temp=new node(c);
-        if(head==null){
-            head=temp;
-            
-        }
-        else{
-            temp.next=head;
-            head=temp;
+
+    public void add(char c) {
+        node temp = new node(c);
+        if (head == null) {
+            head = temp;
+
+        } else {
+            temp.next = head;
+            head = temp;
         }
         tempList.add(temp);
     }
-    public boolean contains(char c){
-        if(tempList.contains(c)){
+
+    public boolean contains(char c) {
+        if (tempList.contains(c)) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    public void sort(){
-        node curr=head;
+
+    public void sort() {
+        node curr = head;
         while (curr != null) {
-            node min= curr;
+            node min = curr;
             node temp = curr.next;
             while (temp != null) {
                 if (temp.count < min.count) {
@@ -73,38 +81,65 @@ class linkedList{
             min.data = tempData;
             min.count = tempCount;
             curr = curr.next;
+        }
+    }
+
+    public void display(linkedList l) {
+        node temp = l.getNode();
+        System.out.println("----List----");
+        while (temp.next != null) {
+            System.out.println(temp.data + " " + temp.count);
+            temp = temp.next;
+        }
     }
 }
-public class FirstNonRepeatingStream{
-    public linkedList list=new linkedList();
-    
-    public void checkList(node temp){
-        if(list.contains(temp.data)){
-            list.getNode(temp).setCount(temp.count++);
+
+class FirstNonRepeatingStream {
+
+    public linkedList checkList(linkedList l) {
+        linkedList tempList = new linkedList();
+        node temp = l.getNode();
+        while (temp.next != null) {
+            if (tempList.contains(temp.data)) {
+                temp.count++;
+            } 
+            else {
+                tempList.add(temp.data);
+            }
+            temp = temp.next;
         }
-        else{
-            list.add(temp.data);
-        }   
+        return tempList;
     }
-    public LinkedList<Character> sort(){
-        list.sort();
+
+    public linkedList sortList(linkedList l) {
+        l.sort();
+        return l;
     }
-    public char getFirstNonRepeating(){
-        if(list.getNode(head).getCount()==0){
-            char c=list.getNode(head).getData();
+
+    public char getFirstNonRepeating(linkedList l) {
+        node temp = l.getNode();
+        if (temp.getCount() == 0) {
+            char c = temp.data;
             return c;
         }
         return '-';
-        
     }
-
 }
 
-public class q2{
-    public static void main(String[] args){
+public class q2 {
+    public static void main(String[] args) {
         System.out.println("First non repeating char java");
-        
-       
-
+        linkedList l = new linkedList();
+        linkedList l2 = new linkedList();
+        l.add('a');
+        l.add('b');
+        l.add('a');
+        l2.display(l);
+        FirstNonRepeatingStream fnrs = new FirstNonRepeatingStream();
+        l = fnrs.checkList(l);
+        l2.display(l);
+        l = fnrs.sortList(l);
+        l2.display(l);
+        System.out.println("First non-repeating character: " + fnrs.getFirstNonRepeating(l));
     }
 }
